@@ -75,38 +75,38 @@ fn print_board(b: &Board) {
 
 // Checks to see who won (or if tied) based on a board.
 
-fn check_for_win(b: &Board) -> GameStatus {
+// fn check_for_win(b: &Board) -> GameStatus {
 
-    // Number of x's and o's
-    let mut xs = 0;
-    let mut os = 0;
+//     // Number of x's and o's
+//     let mut xs = 0;
+//     let mut os = 0;
 
-    // Go through all elements in array.  Increment
-    // values for each X or O found
+//     // Go through all elements in array.  Increment
+//     // values for each X or O found
     
-    for j in 0..3 {
-        for k in 0..3 {
-            match b[j][k] {
-                Square::X => xs += 1,
-                Square::O => os += 1,
-                Square::Empty => {}
-            }
-        }
-    }
+//     for j in 0..3 {
+//         for k in 0..3 {
+//             match b[j][k] {
+//                 Square::X => xs += 1,
+//                 Square::O => os += 1,
+//                 Square::Empty => {}
+//             }
+//         }
+//     }
 
-    // Possibilities:
-    //  More X's than O's -> Player 1 wins
-    //  More O's than X's -> Player 2 wins
-    //  Equal #s of X's and O's (rare!) -> Tie
+//     // Possibilities:
+//     //  More X's than O's -> Player 1 wins
+//     //  More O's than X's -> Player 2 wins
+//     //  Equal #s of X's and O's (rare!) -> Tie
     
-    if xs > os {
-        return GameStatus::Player1Win;
-    } else if xs < os {
-        return GameStatus::Player2Win;
-    } else {
-        return GameStatus::Tie;
-    }
-}
+//     if xs > os {
+//         return GameStatus::Player1Win;
+//     } else if xs < os {
+//         return GameStatus::Player2Win;
+//     } else {
+//         return GameStatus::Tie;
+//     }
+// }
 
 // Pick a random square and return it as a tuple
 // Setting it to usize now because we will need it
@@ -142,27 +142,21 @@ fn main() {
     let mut b: Board = [[Square::Empty; 3]; 3];
 
     // The names of the two players
-    let name1;
-    let name2;
+    let mut input;
+
 
     // Get and set names of the two users
-    
-    println!("Enter name 1 > ");
-    
-    match get_name() {
-        Ok(n) => name1 = String::from(n.trim()),
-        Err(_) => name1 = String::from("DEFAULT1")
-    }
+    loop{
+        println!("Enter choice (r,p,s) or q to quit > ");
+        
+        match get_name() {
+            Ok(n) => input = String::from(n.trim()),
+            Err(_) => input = String::from("DEFAULT1")
+        }
 
-    println!("Enter name 2 > ");
-    
-    match get_name() {
-        Ok(n) => name2 = String::from(n.trim()),
-        Err(_) => name2 = String::from("DEFAULT2")
+            
+        println!("Your Guess: {}!", input);
     }
-    
-    println!("Player 1 Name {}!", name1);
-    println!("Player 2 Name {}!", name2);
 
     // Number of turns taken
     let mut num_turns = 0;
@@ -204,10 +198,6 @@ fn main() {
     // possibility.
     // This can't be done with a traditional switch or if statement!
     
-    match check_for_win(&b) {
-            GameStatus::Player1Win => println!("{} won! {} lost!", name1, name2),
-            GameStatus::Player2Win => println!("{} won! {} lost!", name2, name1),
-            GameStatus::Tie => println!("{} and {} tie!", name1, name2),
-    }
+   
     
 }
